@@ -1,10 +1,19 @@
 $(function(){
+    console.log("Main Init Called");
     init();
     ParseFen(START_FEN);
     PrintBoard();
     GenerateMoves();
     PrintMoveList();
-    console.log("Main Init Called");
+    PrintPieceLists();
+    if(CheckBoard())
+    {
+        console.log("Board is perfect");
+    }
+    MakeMove(GameBoard.moveList[0]);
+    PrintBoard();
+    CheckBoard();
+    
 });
 function InitFilesRanksBrd()
 {
@@ -74,12 +83,29 @@ function InitSq120To64()
         }
     }
 }
+
+// Intializing 2048 empty history moves
+function InitBoardVars()
+{
+    var index=0;
+    for(index=0 ; index < MAXGAMEMOVES ; ++index)
+    {
+        GameBoard.history.push({
+            move : NOMOVE,
+            castlePerm : 0,
+            enPas : 0,
+            fiftyMove : 0,
+            posKey :0
+        });
+    }
+}
 function init()
 {
     InitFilesRanksBrd();
     console.log("Board Intialized");
     InitHashKeys();
     InitSq120To64();
+    InitBoardVars();
     console.log("Init Called");
 
 }

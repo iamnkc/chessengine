@@ -10,6 +10,7 @@ GameBoard.side = COLOURS.WHITE; //player turn
 GameBoard.fiftyMove =0; //fifty move rule
 GameBoard.hisPly = 0;  //half move
 GameBoard.ply =0;  //dont know
+GameBoard.history = []; //History array
 GameBoard.enPas = 0; // enpassant
 GameBoard.castlePerm =0; //castling permission 
 GameBoard.material = new Array(2); //
@@ -20,6 +21,55 @@ GameBoard.posKey =0 ; //represents unique number
 GameBoard.moveList = new Array(MAXDEPTH*MAXPOSITIONMOVES); // contains the moves of index
 GameBoard.moveScores = new Array(MAXDEPTH*MAXPOSITIONMOVES);
 GameBoard.moveListStart = new Array(MAXDEPTH); //'index' Index for the first move at ply
+
+//checking the whole board
+function CheckBoard() {   
+ 
+	var t_pceNum = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+	var t_material = [ 0, 0];
+	var sq64, t_piece, t_pce_num, sq120, colour, pcount;
+	
+	for(t_piece = PIECES.wP; t_piece <= PIECES.bK; ++t_piece) {
+		for(t_pce_num = 0; t_pce_num < GameBoard.pceNum[t_piece]; ++t_pce_num) {
+			sq120 = GameBoard.pList[PCEINDEX(t_piece,t_pce_num)];
+			if(GameBoard.pieces[sq120] != t_piece) {
+				console.log('Error Pce Lists');
+				return BOOL.FALSE;
+			}
+		}	
+	}
+	
+	for(sq64 = 0; sq64 < 64; ++sq64) {
+		sq120 = SQ120(sq64);
+		t_piece = GameBoard.pieces[sq120];
+		t_pceNum[t_piece]++;
+		t_material[PieceCol[t_piece]] += PieceVal[t_piece];
+	}
+	
+	for(t_piece = PIECES.wP; t_piece <= PIECES.bK; ++t_piece) {
+		if(t_pceNum[t_piece] != GameBoard.pceNum[t_piece]) {
+				console.log('Error t_pceNum');
+				return BOOL.FALSE;
+			}	
+	}
+	
+	if(t_material[COLOURS.WHITE] != GameBoard.material[COLOURS.WHITE] ||
+			 t_material[COLOURS.BLACK] != GameBoard.material[COLOURS.BLACK]) {
+				console.log('Error t_material');
+				return BOOL.FALSE;
+	}	
+	
+	if(GameBoard.side!=COLOURS.WHITE && GameBoard.side!=COLOURS.BLACK) {
+				console.log('Error GameBoard.side');
+				return BOOL.FALSE;
+	}
+	
+	if(GeneratePosKey()!=GameBoard.posKey) {
+				console.log('Error GameBoard.posKey');
+				return BOOL.FALSE;
+	}	
+	return BOOL.TRUE;
+}
 
 function PrintBoard()
 {
