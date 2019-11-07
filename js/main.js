@@ -13,6 +13,9 @@ $(function(){
     MakeMove(GameBoard.moveList[0]);
     PrintBoard();
     CheckBoard();
+    TakeMove();
+    PrintBoard();
+    CheckBoard();
     
 });
 function InitFilesRanksBrd()

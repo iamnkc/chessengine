@@ -3,4 +3,5 @@ $("#SetFen").click(function(){
     console.log(fenStr);
     ParseFen(fenStr);
     PrintBoard();
+    PerftTest(5);
 });

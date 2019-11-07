@@ -124,6 +124,7 @@ function GenerateMoves()
     {
         pceType = PIECES.wP;
         //console.log(pceType);
+        //console.log("Number of white pawn pieces - " + GameBoard.pceNum[pceType]);
         for(pceNum =0 ; pceNum < GameBoard.pceNum[pceType] ; ++pceNum)
         {
             sq = GameBoard.pList[PCEINDEX(pceType,pceNum)];
