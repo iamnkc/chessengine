@@ -13,7 +13,7 @@ function PrMove(move) {
 	MvStr = FileChar[ff] + RankChar[rf] + FileChar[ft] + RankChar[rt];
 	
 	var promoted = PROMOTED(move);
-	console.log('promoted = ' + promoted);
+	//console.log('promoted = ' + promoted);
 	if(promoted != PIECES.EMPTY) {
 		var pchar = 'q';
 		if(PieceKnight[promoted] == BOOL.TRUE) {

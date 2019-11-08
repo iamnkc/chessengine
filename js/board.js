@@ -21,6 +21,11 @@ GameBoard.posKey =0 ; //represents unique number
 GameBoard.moveList = new Array(MAXDEPTH*MAXPOSITIONMOVES); // contains the moves of index
 GameBoard.moveScores = new Array(MAXDEPTH*MAXPOSITIONMOVES);
 GameBoard.moveListStart = new Array(MAXDEPTH); //'index' Index for the first move at ply
+GameBoard.PvTable = []; // best moves stored from alpha beta tree
+GameBoard.PvArray = new Array(MAXDEPTH); // Moves at depth
+GameBoard.searchHistory = new Array(14*BRD_SQ_NUM); // history
+GameBoard.searchKillers = new Array(3*(MAXDEPTH)); // Where alpha exceded the beta
+
 
 //checking the whole board
 function CheckBoard() {   
